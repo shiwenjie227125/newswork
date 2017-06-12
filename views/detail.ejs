@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		li{
+			list-style:none;
+			line-height:30px;
+			/*background:#ccc;*/
+			margin:10px 0;
+			padding-left:20px;
+		}
+	</style>
+</head>
+<body>
+	<%for(var i=0;i<num.length;i++){%>
+			<li class="detail"><%=num[i].NO%></li>
+		<%}%>
+</body>
+</html>
+<script src="./jquery.js"></script>
+<script>
+	$(".detail").on("click",function(){
+		var NO=$(this).text();
+		console.log(NO);
+		$.ajax({
+			url:'/successed',
+			type:'post',
+			data:{
+				NO:NO
+			},
+			success:function(msg){
+				if(msg.code==0){
+					console.log(msg)
+					window.location.href='/success?NO='+NO
+				}else{
+					window.location.href='/success?NO='+NO
+				}
+			}
+		})
+	})
+</script>
