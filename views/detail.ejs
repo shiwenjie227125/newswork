@@ -6,29 +6,40 @@
 	<style>
 		li{
 			list-style:none;
-			line-height:30px;
+			line-height:25px;
 			margin:10px 0;
 			padding-left:20px;
+			width:550px;
+			height:25px;
+			background:#ccc;
+			padding:10px;
 		}
 		#text{
 			border:1px solid #000;
-			margin-bottom:10px;
+			margin:10px 0;
+			width:500px;
+			height:50px;
+			display: inline-block;
+		}
+		.add{
+			display: block;
+			margin-left:500px;
 		}
 	</style>
 </head>
 <body>
-	<%for(var i=0;i<num.length;i++){%>
-			<li class="detail"><%=num[i].NO%><%=num[i].title.slice(0,3)%></li>
-		<%}%>
-
-		<div id='text' contenteditable='true'></div>
+	作者：<input type="text" id="key"><br/>
+	文章：<div id='text' contenteditable='true'></div>
 	<button class="add">添加</button>
+	<%for(var i=0;i<num.length;i++){%>
+			<li class="detail"><span class="only"><%=num[i].NO%></span><span><%=num[i].keys%></span></li>
+		<%}%>
 </body>
 </html>
 <script src="./jquery.js"></script>
 <script>
 	$(".detail").on("click",function(){
-		var NO=$(this).text();
+		var NO=$(this).children('.only').text();
 		console.log(NO);
 		$.ajax({
 			url:'/successed',
@@ -38,10 +49,22 @@
 			},
 			success:function(msg){
 				if(msg.code==0){
-					console.log(msg)
+					console.log(msg.data[0].count)				
 					window.location.href='/success?NO='+NO
 				}else{
 					// window.location.href='/success?NO='+NO
+				}
+			}
+		})
+		$.ajax({
+			url:'/count',
+			type:'post',
+			data:{
+				NO:NO
+			},
+			success:function(msg){
+				if(msg=='fangwenliang'){
+					window.location.href='/success?NO='+NO
 				}
 			}
 		})
@@ -52,14 +75,17 @@
 
 	$(".add").on("click",function(){
 			var title=$("#text").text().trim();
+			var keys=$("#key").val().trim();
+			console.log(keys)
 			console.log(title)
 			$.ajax({
 			url:'/add',
 			type:'post',
-			data:{title:title},
+			data:{title:title,keys:keys},
 			success:function(msg){	
+				console.log(msg)
 				if(msg.code==0){		
-					window.location.href='/detail'
+					// window.location.href='/detail'
 				}
 					
 			}

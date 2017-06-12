@@ -4,6 +4,7 @@ var detail=require('../routers/detail.js');
 var success=require('../routers/success.js');
 var successed=require('../routers/successed.js')
 var add=require('../routers/add.js')
+var count=require('../routers/update.js')
 
 module.exports=function(app){
 	app.get('/boke',boke);
@@ -12,4 +13,5 @@ module.exports=function(app){
 	app.get('/success',success);
 	app.post('/successed',successed)
 	app.post('/add',add)
+	app.post('/count',count)
 }

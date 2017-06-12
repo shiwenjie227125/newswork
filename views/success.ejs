@@ -11,6 +11,7 @@
 <script src="./jquery.js"></script>
 <script>
 	var NO=location.search.split("=")[1];
+	console.log(NO)
 		$.ajax({
 			url:'/successed',
 			type:'post',
@@ -19,11 +20,12 @@
 			},
 			success:function(msg){
 				if(msg.code==0){
-					console.log(msg)
+					console.log(msg.data[0].count)
 					var str="";
                 for(var i=0;i<msg.data.length;i++){
-                    str+='<li>'+msg.data[i].title+'</li>'
+                    str+='<li>'+msg.data[i].title+'</li><li>访问量：'+msg.data[i].count+'</li>'
                 }
+                console.log(str)
                 $('ul').html(str)
 
 				}else{

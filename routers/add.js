@@ -5,8 +5,12 @@ var connection=require('../config/configMysql.js')(mysql);
 
 router.post('/add',function(req,res){
 	var title=req.body.title;
-	connection.query('insert into news(title) values("'+title+'")',function(err,data){		
-			res.send({code:0,data:data})		
+	var keys=req.body.keys;
+	console.log(keys)
+	console.log(title)
+	connection.query("insert into news(keys,title) values('"+keys+"','"+title+'")',function(err,data){
+			
+			res.send({code:0,data:"ok"})		
 	})
 })
 module.exports=router;
