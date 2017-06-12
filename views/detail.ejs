@@ -7,16 +7,22 @@
 		li{
 			list-style:none;
 			line-height:30px;
-			/*background:#ccc;*/
 			margin:10px 0;
 			padding-left:20px;
+		}
+		#text{
+			border:1px solid #000;
+			margin-bottom:10px;
 		}
 	</style>
 </head>
 <body>
 	<%for(var i=0;i<num.length;i++){%>
-			<li class="detail"><%=num[i].NO%></li>
+			<li class="detail"><%=num[i].NO%><%=num[i].title.slice(0,3)%></li>
 		<%}%>
+
+		<div id='text' contenteditable='true'></div>
+	<button class="add">添加</button>
 </body>
 </html>
 <script src="./jquery.js"></script>
@@ -35,9 +41,28 @@
 					console.log(msg)
 					window.location.href='/success?NO='+NO
 				}else{
-					window.location.href='/success?NO='+NO
+					// window.location.href='/success?NO='+NO
 				}
 			}
 		})
 	})
+
+
+
+
+	$(".add").on("click",function(){
+			var title=$("#text").text().trim();
+			console.log(title)
+			$.ajax({
+			url:'/add',
+			type:'post',
+			data:{title:title},
+			success:function(msg){	
+				if(msg.code==0){		
+					window.location.href='/detail'
+				}
+					
+			}
+		})
+		})
 </script>

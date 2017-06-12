@@ -10,9 +10,6 @@
 </html>
 <script src="./jquery.js"></script>
 <script>
-	// $(".detail").on("click",function(){
-	// 	var NO=$(this).text();
-	// 	console.log(NO);
 	var NO=location.search.split("=")[1];
 		$.ajax({
 			url:'/successed',
@@ -22,16 +19,17 @@
 			},
 			success:function(msg){
 				if(msg.code==0){
-					console.log(msg.data[0].title)
+					console.log(msg)
 					var str="";
                 for(var i=0;i<msg.data.length;i++){
-                    str+='<li>'+msg.data[0].title+'</li>'
+                    str+='<li>'+msg.data[i].title+'</li>'
                 }
                 $('ul').html(str)
+
 				}else{
-					// window.location.href='/success'
+			
 				}
 			}
 		})
-	// })
+
 </script>

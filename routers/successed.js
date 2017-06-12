@@ -7,7 +7,6 @@ router.post('/successed',function(req,res){
 	var NO=req.body.NO;
 	console.log(NO)
 	connection.query("select * from news where NO='"+NO+"'",function(err,data){
-		console.log(data)
 		if(data.length>0){
 			res.send({code:0,data:data})
 		}else{
